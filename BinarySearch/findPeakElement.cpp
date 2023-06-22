@@ -10,9 +10,9 @@ using namespace std;
             if(mid-1>=0 && mid+1<=n-1)
             {  if(nums[mid]>nums[mid-1] && nums[mid]>nums[mid+1])
                    return mid;
-               else if(nums[mid]>nums[mid+1])
+               else if(nums[mid]>nums[mid+1])//Decreasing on right->Peak to left of mid
                    h=mid;
-               else
+               else   //Increaing on right-> Peak to the right
                    l=mid+1;
             }
             if(mid==0 && nums[mid]>nums[mid+1])
@@ -21,6 +21,8 @@ using namespace std;
                  l=mid+1;
             if(mid==n-1 && nums[mid]>nums[mid-1])
                 return n;
+            if(mid==n-1 && nums[mid]<nums[mid-1])
+                h=mid;
         }
         return l;
     }
