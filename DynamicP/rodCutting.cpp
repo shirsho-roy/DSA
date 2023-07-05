@@ -84,7 +84,7 @@ int main() {
             
         Solution ob;
 
-        cout << ob.cutRod(a, n) << endl;
+        // cout << ob.cutRod(a, n) << endl;
     }
     return 0;
 }
