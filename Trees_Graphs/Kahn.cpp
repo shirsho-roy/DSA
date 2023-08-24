@@ -1,37 +1,38 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-//Cycle detection using Kahn' algorithm(Compare Topsort number with no. of vertices)
+
 class Solution {
 public:
-    bool isCycle(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<int> indegree(numCourses,0);
-        vector<vector<int>> adj(numCourses);
-        for(auto i:prerequisites){
-            adj[i[0]].push_back(i[1]);
-            indegree[i[1]]++;
-        }
-        queue<int> q;
-        int c=0;
-        for(int i=0;i<numCourses;i++){
-            if(indegree[i]==0){
-                q.push(i);
-                c++;
-            }
-        }
-        while(!q.empty()){
-            int frnt=q.front();
-            q.pop();
-            for(auto it:adj[frnt]){
-                indegree[it]--;
-                if(indegree[it]==0){
-                    q.push(it);
-                    c++;
-                }
-            }
+	//Function to return list containing vertices in Topological order.
+	vector<int> topoSort(int V, vector<int> adj[])
+	{
+		int indegree[V] = {0};
+		for (int i = 0; i < V; i++) {
+			for (auto it : adj[i]) {
+				indegree[it]++;
+			}
+		}
 
-        }
-        if(c==numCourses) return true;
-        else return false;
+		queue<int> q;
+		for (int i = 0; i < V; i++) {
+			if (indegree[i] == 0) {
+				q.push(i);
+			}
+		}
+		vector<int> topo;
+		while (!q.empty()) {
+			int node = q.front();
+			q.pop();
+			topo.push_back(node);
+			// node is in your topo sort
+			// so please remove it from the indegree
 
-    }
+			for (auto it : adj[node]) {
+				indegree[it]--;
+				if (indegree[it] == 0) q.push(it);
+			}
+		}
+
+		return topo;
+	}
 };
